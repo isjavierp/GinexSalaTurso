@@ -1,0 +1,27 @@
+---
+import MovieCard from "./MovieCard.astro";
+import { getMovies } from "../lib/services/movies";
+const movies_data = await getMovies();
+
+---
+<section class="h-auto bg-[#010739] w-full flex flex-col p-8" id="cartelera">
+    <h1 class="text-white text-[26px] font-bold">Cartelera de esta semana</h1>
+    <div class="w-full flex flex-row gap-2 items-center pb-4 border-b">
+        <p class="text-white text-xl font-bold">Ver el </p> 
+        <select name="fechas" id="fechas" class="p-2 bg-[rgba(174,205,224,.15)] border-0 text-white font-bold" >
+            <option value="1" class="bg-white text-black">Hoy, 23 Noviembre</option>
+            <option value="2" class="bg-white text-black" >Mañana, 24 Noviembre</option>
+            <option value="3" class="bg-white text-black">Viernes, 29 de Noviembre</option>
+            <option value="4" class="bg-white text-black">Sabado, 30 de Noviembre</option>
+            <option value="5" class="bg-white text-black">Domingo, 01 de Diciembre</option>
+        </select>
+    </div>
+   
+    <div class="flex flex-col gap-5 pt-5 sm:w-full sm:h-auto sm:pt-5 md:flex sm:flex-row sm:flex-wrap sm:justify-center">
+      {movies_data.map((movie:any)=>(
+        <MovieCard title={movie.title} img={movie.poster_path} rate={movie.vote_average} id={movie.id} />
+      ))}
+    </div>
+  
+    
+</section>
